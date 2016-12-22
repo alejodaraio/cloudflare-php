@@ -62,9 +62,9 @@ class CloudFlareApi {
   }
 
   /**
-   * @param $url
-   * @param $body
-   * @param $method
+   * @param string $url
+   * @param array $body
+   * @param string $method
    * @return mixed
    * @throws \Exception
    */
