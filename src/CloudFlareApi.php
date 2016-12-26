@@ -49,6 +49,7 @@ class CloudFlareApi {
   /**
    * @param array $urls
    * @param array $tags
+   * @return mixed
    * @throws CloudFlareException
    * @url https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags
    */
@@ -70,6 +71,7 @@ class CloudFlareApi {
 
     $call = $this->call($url, $body, self::METHOD_DELETE);
 
+    return $call;
   }
 
   /**
