@@ -6,10 +6,11 @@
         convertWarningsToExceptions="true"
         syntaxCheck="true"
         stopOnError="false"
+        debug="false"
 >
     <testsuites>
         <testsuite name="All">
-            <directory>./src/test/*</directory>
+            <directory>test</directory>
         </testsuite>
     </testsuites>
 </phpunit>

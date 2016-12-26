@@ -2,10 +2,28 @@
 
 namespace CloudFlareApi;
 
+use Exception;
+
+class CloudFlareException extends Exception {
+
+  /**
+   * CloudFlareException constructor.
+   * @param string $message
+   * @param int $code
+   * @param \Exception|NULL $previous
+   */
+  public function __construct($message = "", $code = 0, Exception $previous = NULL) {
+    parent::__construct($message, $code, $previous);
+  }
+
+}
+
 class CloudFlareApi {
 
   const API_CLOUDFLARE = 'https://api.cloudflare.com/client/';
   const API_VERSION = 'v4';
+  const MAX_FILES = 30;
+  const MAX_TAGS = 30;
 
   const METHOD_DELETE = "DELETE";
   const METHODS = array(
@@ -31,17 +49,17 @@ class CloudFlareApi {
   /**
    * @param array $urls
    * @param array $tags
-   * @throws \Exception
+   * @throws CloudFlareException
    * @url https://api.cloudflare.com/#zone-purge-individual-files-by-url-and-cache-tags
    */
   public function purge_files($urls = array(), $tags = array()) {
 
-    if (count($urls) > 30) {
-      throw new \Exception('The max length to purge files is: 30');
+    if (count($urls) > self::MAX_FILES) {
+      throw new CloudFlareException('The max length to purge files is: ' . self::MAX_FILES);
     }
 
-    if (count($tags) > 30) {
-      throw new \Exception('The max length to purge tags is: 30');
+    if (count($tags) > self::MAX_TAGS) {
+      throw new CloudFlareException('The max length to purge tags is: ' . self::MAX_TAGS);
     }
 
     $url = $this->cloudflarePath() . '/zones/' . $this->zoneID . '/purge_cache';
@@ -66,12 +84,12 @@ class CloudFlareApi {
    * @param array $body
    * @param string $method
    * @return mixed
-   * @throws \Exception
+   * @throws CloudFlareException
    */
   private function call($url, $body, $method) {
 
     if (!in_array($method, self::METHODS)) {
-      throw new \Exception('The method ' . $method . ' is not supported');
+      throw new CloudFlareException('The method ' . $method . ' is not supported');
     }
 
     $ch = curl_init();
