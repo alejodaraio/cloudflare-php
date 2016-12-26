@@ -60,7 +60,7 @@ ADD ./supervisord.conf /etc/supervisord.conf
 # Add php config Files
 ADD ./php-fpm.conf /etc/php-fpm.conf
 ADD ./php.ini /etc/php.ini
-ADD ./php-fpm.d/www.conf /etc/php-fpm.d/www.conf
+ADD ./php-fpm.d/www.conf /c/php-fpm.d/www.conf
 
 # Configure /app folder with sample app
 RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html

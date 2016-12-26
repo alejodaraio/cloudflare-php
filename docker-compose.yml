@@ -9,7 +9,5 @@ services:
     volumes:
       - ./docker/httpd/sites.d:/etc/httpd/sites.d:ro
       - ./:/app:rw
-    expose:
-     - "80"
-     - "9000"
-     - "443"
+    ports:
+     - "80:80"
