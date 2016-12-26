@@ -1,0 +1,15 @@
+version: '2'
+services:
+  web:
+    hostname: web
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.web
+    working_dir: /app
+    volumes:
+      - ./docker/httpd/sites.d:/etc/httpd/sites.d:ro
+      - ./:/app:rw
+    expose:
+     - "80"
+     - "9000"
+     - "443"

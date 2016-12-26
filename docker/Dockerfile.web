@@ -1,0 +1,70 @@
+FROM centos:6
+
+# Install EPEL repo
+RUN rpm --import https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6 && \
+    rpm --nosignature -i https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+
+# Install IUS repo
+RUN rpm --import https://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY && \
+    rpm --nosignature -i https://centos6.iuscommunity.org/ius-release.rpm
+
+# Install supervisor packages
+RUN yum install -y supervisor
+
+# Install httpd packages
+RUN yum install -y httpd24u
+
+# Install php56u-fpm packages
+RUN yum install -y php56u-fpm
+
+# Install php56u packages
+RUN yum install -y php56u-cli \
+                   php56u-pecl-memcache \
+                   php56u-process \
+                   php56u-xml \
+                   php56u-pdo \
+                   php56u-mbstring \
+                   php56u-mcrypt \
+                   php56u-mysqlnd \
+                   php56u-pecl-apcu \
+                   php56u-jsonc \
+                   php56u-common \
+                   php56u-mssql \
+                   php56u-gd \
+                   php56u-soap \
+                   php56u-opcache \
+                   php56u-pecl-igbinary \
+                   php56u-devel
+
+#WGET
+RUN yum install wget -y
+
+# Install xdebug packages
+RUN yum install -y gcc
+RUN pecl install xdebug
+
+## Add composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+## Add phpunit
+RUN wget https://phar.phpunit.de/phpunit.phar
+RUN chmod +x phpunit.phar
+RUN mv phpunit.phar /usr/local/bin/phpunit
+
+# Clean image
+RUN yum clean all
+
+# Add supervisor config files
+ADD ./supervisord.conf /etc/supervisord.conf
+
+# Add php config Files
+ADD ./php-fpm.conf /etc/php-fpm.conf
+ADD ./php.ini /etc/php.ini
+ADD ./php-fpm.d/www.conf /etc/php-fpm.d/www.conf
+
+# Configure /app folder with sample app
+RUN mkdir -p /app && rm -fr /var/www/html && ln -s /app /var/www/html
+
+EXPOSE 80 8080 9000
+
+CMD ["supervisord","-c","/etc/supervisord.conf"]
