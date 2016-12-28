@@ -1,6 +1,7 @@
 <?php
 
 require_once '/app/src/CloudFlareApi.php';
+require_once '/app/test/CloudFlareResponseMock.php';
 
 use CloudFlareApi\CloudFlareApi;
 use CloudFlareApi\CloudFlareException;
@@ -51,5 +52,15 @@ class CloudFlareApiTest extends PHPUnit_Framework_TestCase {
     } catch(CloudFlareException $e) {
       $this->assertInstanceOf(CloudFlareException::class, $e, $e->getMessage());
     }
+  }
+
+  public function testPurgeFileSuccess() {
+
+    $stub = $this->createMock(CloudFlareApi::class);
+    $stub->method('purge_files')->willReturn(true);
+
+    $files = array('http://mymock.com/mock');
+    $tags = array();
+    $this->assertTrue($stub->purge_files($files, $tags));
   }
 }

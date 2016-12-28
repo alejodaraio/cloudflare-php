@@ -93,7 +93,7 @@ class CloudFlareApi {
    * @return mixed
    * @throws CloudFlareException
    */
-  protected function call($url, $body, $method) {
+  public function call($url, $body, $method) {
 
     if (!in_array($method, self::METHODS)) {
       throw new CloudFlareException('The method ' . $method . ' is not supported');
