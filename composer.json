@@ -12,5 +12,10 @@
       "name": "alejo",
       "email": "alejodaraio@gmail.com"
     }
-  ]
+  ],
+  "autoload": {
+    "psr-4": {
+      "CloudFlareApi\\": "src/"
+    }
+  }
 }
