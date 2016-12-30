@@ -1,7 +1,3 @@
-machine:
-  php:
-    version: 5.6.22
-
 dependencies:
   override:
     - mkdir -p build/logs
