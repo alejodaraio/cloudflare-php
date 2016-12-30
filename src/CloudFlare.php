@@ -1,24 +1,10 @@
 <?php
 
-namespace CloudFlareApi;
+namespace CloudFlare;
 
-use Exception;
+use CloudFlare\model\ICloudFlare;
 
-class CloudFlareException extends Exception {
-
-  /**
-   * CloudFlareException constructor.
-   * @param string $message
-   * @param int $code
-   * @param \Exception|NULL $previous
-   */
-  public function __construct($message = "", $code = 0, Exception $previous = NULL) {
-    parent::__construct($message, $code, $previous);
-  }
-
-}
-
-class CloudFlareApi {
+class CloudFlare implements ICloudFlare {
 
   const API_CLOUDFLARE = 'https://api.cloudflare.com/client/';
   const API_VERSION = 'v4';
@@ -37,8 +23,8 @@ class CloudFlareApi {
   /**
    * CloudFlareApi constructor.
    * @param string $email
-   * @param string  $key
-   * @param string  $zoneID
+   * @param string $key
+   * @param string $zoneID
    */
   public function __construct($email, $key, $zoneID) {
     $this->email = $email;
@@ -63,7 +49,7 @@ class CloudFlareApi {
       throw new CloudFlareException('The max length to purge tags is: ' . self::MAX_TAGS);
     }
 
-    $url = $this->cloudflarePath() . '/zones/' . $this->zoneID . '/purge_cache';
+    $url = $this->cloudflareApiPath() . '/zones/' . $this->zoneID . '/purge_cache';
     $body = array(
       'files' => $urls,
       'tags' => $tags
@@ -71,18 +57,18 @@ class CloudFlareApi {
 
     $call = $this->call($url, $body, self::METHOD_DELETE);
 
-    if($call->success !== true) {
+    if ($call->success !== TRUE) {
       $error = $call->errors[0];
       throw new CloudFlareException($error->message, $error->code);
     }
 
-    return true;
+    return TRUE;
   }
 
   /**
    * @return string
    */
-  private function cloudflarePath() {
+  private function cloudflareApiPath() {
     return self::API_CLOUDFLARE . self::API_VERSION;
   }
 
@@ -99,20 +85,18 @@ class CloudFlareApi {
       throw new CloudFlareException('The method ' . $method . ' is not supported');
     }
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-
     $headers = [
       'X-Auth-Email: ' . $this->email,
       'X-Auth-Key: ' . $this->key,
       'Content-Type: application/json'
     ];
 
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
-
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $result = curl_exec($ch);
