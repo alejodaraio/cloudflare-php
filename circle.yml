@@ -1,0 +1,12 @@
+machine:
+  php:
+    version: 5.6
+
+dependencies:
+  - mkdir -p build/logs
+  - composer install --dev --no-interaction
+  - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
+
+test:
+  override:
+    - phpunit -c phpunit.xml.dist

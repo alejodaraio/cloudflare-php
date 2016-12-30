@@ -79,18 +79,18 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
    */
   public function testPurgeFileSuccess() {
 
-    $stub = $this->getMockBuilder(CloudFlare::class)
+    $cfMock = $this->getMockBuilder(CloudFlare::class)
       ->setConstructorArgs(array('mock@mail.com','mockKey','mockZoneId'))
       ->setMethods(array('call'))
       ->getMock();
 
     $cfResult = new CloudFlareMockResult(TRUE);
-    $stub->expects($this->once())->method('call')->willReturn($cfResult->getResult());
+    $cfMock->expects($this->once())->method('call')->willReturn($cfResult->getResult());
 
     $files = array('http://mymock.com/mock');
     $tags = array();
 
-    $this->assertTrue($stub->purge_files($files, $tags));
+    $this->assertTrue($cfMock->purge_files($files, $tags));
   }
 
   /**
@@ -99,17 +99,17 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
    */
   public function testPurgeFileFail() {
 
-    $stub = $this->getMockBuilder(CloudFlare::class)
+    $cfMock = $this->getMockBuilder(CloudFlare::class)
       ->setConstructorArgs(array('mock@mail.com','mockKey','mockZoneId'))
       ->setMethods(array('call'))
       ->getMock();
 
     $cfResult = new CloudFlareMockResult(FALSE);
-    $stub->expects($this->once())->method('call')->willReturn($cfResult->getResult());
+    $cfMock->expects($this->once())->method('call')->willReturn($cfResult->getResult());
 
     $files = array('http://mymock.com/mock');
     $tags = array();
 
-    $this->assertTrue($stub->purge_files($files, $tags));
+    $this->assertTrue($cfMock->purge_files($files, $tags));
   }
 }

@@ -13,4 +13,18 @@
             <directory>test</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>vendor</directory>
+                <directory>docker</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-php" target="build/cov/coverage.cov"/>
+    </logging>
 </phpunit>
