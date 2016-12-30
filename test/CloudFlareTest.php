@@ -6,6 +6,11 @@ use PHPUnit_Framework_TestCase;
 use CloudFlare\CloudFlare;
 use CloudFlare\CloudFlareException;
 
+/**
+ * Class CloudFlareTest
+ * @coversDefaultClass CloudFlare
+ * @package CloudFlareTest
+ */
 class CloudFlareTest extends PHPUnit_Framework_TestCase {
 
   /**
@@ -32,6 +37,9 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
     $this->client = new CloudFlare('user@email.com', '234567543345', '232456543234');
   }
 
+  /**
+   *
+   */
   public function testCallExists() {
     $this->assertTrue(
       method_exists($this->client, 'call'),
@@ -39,6 +47,9 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
     );
   }
 
+  /**
+   * @covers CloudFlare::purge_files()
+   */
   public function testPurgeFileMaxFiles() {
 
     $urls = array();
@@ -56,10 +67,16 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  /**
+   *
+   */
   public function testMethodDelete() {
     $this->assertArraySubset(array('DELETE'), CloudFlare::METHODS);
   }
 
+  /**
+   * @covers CloudFlare::purge_files()
+   */
   public function testPurgeFileSuccess() {
 
     $stub = $this->getMockBuilder(CloudFlare::class)
@@ -77,6 +94,7 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * @covers CloudFlare::purge_files()
    * @expectedException \CloudFlare\CloudFlareException
    */
   public function testPurgeFileFail() {
