@@ -85,6 +85,9 @@ class CloudFlare implements ICloudFlare {
       throw new CloudFlareException('The method ' . $method . ' is not supported');
     }
 
+    /**
+     * @codeCoverageIgnoreStart
+     */
     $headers = [
       'X-Auth-Email: ' . $this->email,
       'X-Auth-Key: ' . $this->key,
@@ -102,5 +105,9 @@ class CloudFlare implements ICloudFlare {
     $result = curl_exec($ch);
 
     return json_decode($result);
+
+    /**
+     * @codeCoverageIgnoreEnd
+     */
   }
 }
