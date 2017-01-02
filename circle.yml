@@ -10,3 +10,5 @@ dependencies:
 test:
   override:
     - phpunit
+  post:
+      - bin/coveralls -v --exclude-no-stmt
