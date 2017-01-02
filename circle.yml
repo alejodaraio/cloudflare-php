@@ -1,6 +1,7 @@
 dependencies:
   override:
     - mkdir -p build/logs
+    - mkdir -p build/cov
     - composer install --dev --no-interaction
 
 test:
