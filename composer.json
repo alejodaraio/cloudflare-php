@@ -1,7 +1,7 @@
 {
   "name": "alejodaraio/cloudflare-purgefile",
   "description": "Small library for purge files on Cloudflare using the API version 4",
-  "homepage": "https://github.com/alejodaraio/cloudflare-php",
+  "homepage": "https://alejodaraio.github.io/cloudflare-php",
   "keywords": ["cloudflare", "purge", "cache", "expire", "tags"],
   "type": "library",
   "license": "MIT",
