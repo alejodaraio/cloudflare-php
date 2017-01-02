@@ -48,7 +48,7 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers CloudFlare::purge_files()
+   *
    */
   public function testPurgeFileMaxFiles() {
 
@@ -75,7 +75,7 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers CloudFlare::purge_files()
+   *
    */
   public function testPurgeFileSuccess() {
 
@@ -94,7 +94,6 @@ class CloudFlareTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
-   * @covers CloudFlare::purge_files()
    * @expectedException \CloudFlare\CloudFlareException
    */
   public function testPurgeFileFail() {
