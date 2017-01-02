@@ -1,31 +1,35 @@
-<phpunit
-        bootstrap="./vendor/autoload.php"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        syntaxCheck="true"
-        stopOnError="false"
-        debug="false"
->
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="vendor/autoload.php">
+    <php>
+        <ini name="error_reporting" value="E_ALL" />
+    </php>
+
     <testsuites>
-        <testsuite name="All">
+        <testsuite name="Cloudflare API">
             <directory>test</directory>
         </testsuite>
     </testsuites>
 
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
+        <whitelist>
+            <directory>./src</directory>
             <exclude>
-                <directory>vendor</directory>
-                <directory>docker</directory>
+                <directory>./bin</directory>
+                <directory>./test</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>
 
     <logging>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="coverage-php" target="build/cov/coverage.cov"/>
     </logging>
 </phpunit>

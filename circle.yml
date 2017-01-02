@@ -1,5 +1,7 @@
-dependencies:
+machine:
+  timezone: America/Los_Angeles
 
+dependencies:
   cache_directories:
     - vendor
   override:
