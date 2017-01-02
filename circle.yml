@@ -5,6 +5,7 @@ dependencies:
   cache_directories:
     - vendor
   override:
+    - echo "date.timezone = America/Los_Angeles" >> /opt/circleci/php/$(phpenv global)/etc/php.ini
     - mkdir -p build/logs
     - mkdir -p build/cov
     - composer install --dev --no-interaction
