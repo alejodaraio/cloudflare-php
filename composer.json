@@ -1,5 +1,5 @@
 {
-  "name": "CloudflarePurgeFile",
+  "name": "alejodaraio/CloudflarePurgeFile",
   "description": "Small library for purge files on Cloudflare using the API version 4",
   "version": "0.0.1",
   "require": {
