@@ -10,9 +10,11 @@ Small library for purge files on Cloudflare using the API version 4
 
 #### Install
 
+Installation should be done via composer, details of how to install composer can be found at https://getcomposer.org/
+
 `composer require alejodaraio/cloudflare-purgefile`
 
-#### Example
+#### Usage
 
 ```php
 use CloudFlare;
@@ -29,3 +31,7 @@ catch(CloudFlareException $e) {
 }
 
 ```
+
+License
+
+MIT
