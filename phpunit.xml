@@ -5,8 +5,8 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false"
+         stopOnFailure="true"
+         syntaxCheck="true"
          bootstrap="vendor/autoload.php">
     <php>
         <ini name="error_reporting" value="E_ALL" />
@@ -22,9 +22,10 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
-                <directory>./bin</directory>
                 <directory>./test</directory>
+                <directory>./build</directory>
                 <directory>./vendor</directory>
+                <directory>./docker</directory>
             </exclude>
         </whitelist>
     </filter>
